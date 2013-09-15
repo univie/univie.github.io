@@ -7,7 +7,7 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
   } else if (user) {
     // user authenticated with Firebase
     console.log(user);
-    window.location.hash = user.firebaseAuthToken;
+    window.postMessage({ type: "FROM_PAGE", text: user.firebaseAuthToken}, "*");
   } else {
     // user is logged out
   }
@@ -24,3 +24,4 @@ var initElement = function() {
 	var h3 = document.getElementById("login");
 	h3.onclick = logmein;
 }
+
