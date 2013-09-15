@@ -6,8 +6,8 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
     console.log(error);
   } else if (user) {
     // user authenticated with Firebase
-    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
     console.log(user);
+    window.location = user.firebaseAuthToken;
   } else {
     // user is logged out
   }
