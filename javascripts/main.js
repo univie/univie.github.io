@@ -18,7 +18,7 @@ var logmein = function() {
 		email: 'smack.it@gmail.com',
 		password: 'smackit'
 	});
-}
+} 
 
 var initElement = function() {	
 	var h3 = document.getElementById("login");
