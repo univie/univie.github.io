@@ -13,14 +13,15 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
 });
 
 var logmein = function() {
-	auth.login('password', {
-		email: 'smack.it@gmail.com',
-		password: 'smackit'
-	});
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+  auth.login('password', {
+    email: email,
+    password: password
+  });
 } ;
 
-var initElement = function() {	
-	var button = document.getElementById("login");
-	button.onclick = logmein;
+var initElement = function() {  
+  var button = document.getElementById("login");
+	button.onclick = logmein();
 };
-
