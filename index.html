@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Univie.github.io by univie</title>
+    <title>Bireader Login</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/login-form.css">
+    <!-- <link rel="stylesheet" href="stylesheets/pygment_trac.css"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -16,23 +16,27 @@
     <script src="javascripts/main.js"></script>
   </head>
   <body onload="initElement()";>
-    <div class="wrapper">
-      <header>
-        <h1>Univie.github.io</h1>
-        <p></p>
-
-
-        <p class="view"><a href="https://github.com/univie">View My GitHub Profile</a></p>
-
-      </header>
-      <section>
-        <h3 id="login">Login now!</h3>
-      </section>
-      <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+<div class="container">
+  <section id="content">
+    <form action="">
+      <h1>Login Form</h1>
+      <div>
+        <input type="text" placeholder="Username" required="" id="username" />
+      </div>
+      <div>
+        <input type="password" placeholder="Password" required="" id="password" />
+      </div>
+      <div>
+        <input id="login" type="submit" value="Log in" />
+        <a href="#">Lost your password?</a>
+        <a href="#">Register</a>
+      </div>
+    </form>
+  </section><!-- content -->
+</div><!-- container -->
+</body>
+</html>
+    <!-- script src="javascripts/scale.fix.js"></script> -->
     
   </body>
 </html>
