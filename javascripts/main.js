@@ -17,7 +17,8 @@ var logmein = function() {
   console.log('logmein');
   auth.login('password', {
     email: document.getElementById("username").value,
-    password: document.getElementById("password").value
+    password: document.getElementById("password").value,
+    rememberMe: true
   });
   return false;
 } ;
