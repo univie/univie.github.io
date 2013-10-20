@@ -23,5 +23,5 @@ var logmein = function() {
 
 var initElement = function() {  
   var button = document.getElementById("login");
-	button.onclick = logmein();
+	button.onclick = logmein;
 };
