@@ -6,6 +6,7 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
     console.log(error);
   } else if (user) {
     // user authenticated with Firebase
+    console.log(user);
     window.postMessage({ type: "FROM_PAGE", text: user.firebaseAuthToken}, "*");
   } else {
     // user is logged out
