@@ -13,17 +13,40 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
   }
 });
 
-var logmein = function() {
-  console.log('logmein');
-  auth.login('password', {
-    email: document.getElementById("username").value,
-    password: document.getElementById("password").value,
-    rememberMe: true
-  });
-  return false;
-} ;
+$(document).ready(function() {
+  var logmein = function() {
+    console.log('logmein');
+    auth.login('password', {
+      'email': document.getElementById("username").value,
+      'password': document.getElementById("password").value,
+      'rememberMe': true
+    });
+    return false;
+  };
+  $('#passwordVerifyDiv').hide(); // hide password verify by default
 
-/*var initElement = function() {  
-  var button = document.getElementById("login");
-	button.onclick = logmein;
-};*/
+  $('#signupButton').click(function() { // show password verify when singup button clicked
+    $('#nonEmailDiv').hide();
+    $('#passwordVerifyDiv').show();
+    $('#submitButton').text('Sign up');
+  });
+  $('#loginButton').click(function() { // hide password verify when login button clicked
+    $('#nonEmailDiv').show();
+    $('#passwordVerifyDiv').hide();
+    $('#submitButton').text('Log in');
+  });
+  $('#facebookLoginButton').click(function() {
+    auth.login('facebook', {
+      'rememberMe': true,
+      'scope': 'email'
+    });
+  });
+  $('#twitterLoginButton').click(function() {
+    auth.login('twitter');
+  });
+
+  $('#submitButton').click(function() {
+
+  });
+  
+});

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Bireader Login</title>
 
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/login-form.css">
     <!-- <link rel="stylesheet" href="stylesheets/pygment_trac.css"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -13,10 +14,61 @@
     <![endif]-->
     <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
     <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="javascripts/main.js"></script>
   </head>
   <body>
-<div class="container">
+    <div class="container">
+      <div class="row">
+
+        <div class="main">
+
+          <h3>Please <a href="#" id="loginButton">Log In</a>, or <a href="#" id="signupButton">Sign Up</a></h3>
+          <div id="nonEmailDiv">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <a href="#" class="btn btn-lg btn-primary btn-block" id="facebookLoginButton">Facebook</a>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <a href="#" class="btn btn-lg btn-info btn-block" id="twitterLoginButton">Twitter</a>
+              </div>
+            </div>
+            <div class="login-or">
+              <hr class="hr-or">
+              <span class="span-or">or</span>
+            </div>
+          </div>
+
+          <form role="form">
+            <div class="form-group">
+              <label for="inputUsernameEmail">Email</label>
+              <input type="text" class="form-control" id="inputUsernameEmail">
+            </div>
+            <div class="form-group" id="passwordDiv">
+              <!-- <a class="pull-right" href="#">Forgot password?</a> -->
+              <label for="inputPassword">Password</label>
+              <input type="password" class="form-control" id="inputPassword">
+            </div>
+            <div class="form-group" id="passwordVerifyDiv">
+              <label for="passwordVerify">Enter password again</label>
+              <input type="password" class="form-control" id="passwordVerify">              
+            </div>
+            <div class="checkbox pull-right">
+              <label>
+                <input type="checkbox">
+                Remember me </label>
+            </div>
+            <button type="submit" class="btn btn btn-primary" id="submitButton">
+              Log In
+            </button>
+          </form>
+        
+        </div>
+        
+      </div>
+    </div>
+
+<!-- <div class="container">
   <section id="content">
     <form action="">
       <h1>Bireader Login</h1>
@@ -32,11 +84,10 @@
         <a href="#">Register</a>
       </div>
     </form>
-  </section><!-- content -->
-</div><!-- container -->
+  </section>
+</div> -->
 </body>
 </html>
-    <!-- script src="javascripts/scale.fix.js"></script> -->
     
   </body>
 </html>
