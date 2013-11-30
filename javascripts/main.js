@@ -66,6 +66,7 @@ $(document).ready(function() {
       if (!(/.+@.+\..+/).test(email)) {alert('Please enter a valid email address.'); return;}
       if (passwordVerify !== password) {alert('Passwords don\'t match.'); return;}
       auth.createUser(email, password, function(error, user) {
+        if (error) {console.log(error); return;}
         console.log('User Id: ' + user.id + ', Email: ' + user.email);
         loginEmail(email, password, rememberMe);
       });
