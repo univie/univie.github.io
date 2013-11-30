@@ -14,14 +14,15 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
 });
 
 $(document).ready(function() {
-  var logmein = function() {
+  var logmein = function(event) {
     console.log('logmein');
     auth.login('password', {
       'email': document.getElementById("username").value,
       'password': document.getElementById("password").value,
       'rememberMe': true
     });
-    return false;
+    event.preventDefault();
+    // return false;
   };
   $('#passwordVerifyDiv').hide(); // hide password verify by default
 
@@ -42,7 +43,12 @@ $(document).ready(function() {
     });
   });
   $('#twitterLoginButton').click(function() {
-    auth.login('twitter');
+    auth.login('twitter', {
+      'rememberMe': true/*,
+      'oauth_token': '15952759-QCp4pH3tLaSF8L6e3wLDxvqlCfkpcNAAbNeHVWQFK',
+      'oauth_token_secret': 'fm2RiZ2VY33Fsnx1XWMsISbjYHgnHML30NUsjAVAssm2V',*/
+      
+    });
   });
 
   $('#submitButton').click(function() {
