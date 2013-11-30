@@ -2,6 +2,8 @@ var ref = new Firebase('https://bi-reader.firebaseio.com/');
 
 var auth = new FirebaseSimpleLogin(ref, function(error, user) {
   if (error) {
+    if (error.code === 'INVALID_USER') {return alert('A user with this email does not exist.');}
+    if (error.code === 'INVALID_PASSWORD') {return alert('The password provided is incorrect.');}
     // an error occurred while attempting login
     console.log(error);
   } else if (user) {
@@ -63,8 +65,6 @@ $(document).ready(function() {
       if (passwordVerify !== password) {return alert('Passwords don\'t match.');}
       
       auth.createUser(email, password, function(error, user) {
-        if (error && error.code === 'INVALID_USER') {return alert('A user with this email does not exist.');}
-        if (error && error.code === 'INVALID_PASSWORD') {return alert('The password provided is incorrect.');}
         console.log('User Id: ' + user.id + ', Email: ' + user.email);
         loginEmail(email, password, rememberMe);
       });
