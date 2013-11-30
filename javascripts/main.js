@@ -61,11 +61,12 @@ $(document).ready(function() {
     if (password.length === 0) {return alert('Please enter your password and try again.');}
     if (signup) {
       if (passwordVerify !== password) {return alert('Passwords don\'t match.');}
+      
       auth.createUser(email, password, function(error, user) {
-        if (!error) {
-          console.log('User Id: ' + user.id + ', Email: ' + user.email);
-          loginEmail(email, password, rememberMe);
-        }
+        if (error && error.code === 'INVALID_USER') {return alert('A user with this email does not exist.');}
+        if (error && error.code === 'INVALID_PASSWORD') {return alert('The password provided is incorrect.');}
+        console.log('User Id: ' + user.id + ', Email: ' + user.email);
+        loginEmail(email, password, rememberMe);
       });
     } else {
       loginEmail(email, password, rememberMe);
