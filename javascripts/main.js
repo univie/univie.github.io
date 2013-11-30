@@ -63,10 +63,9 @@ $(document).ready(function() {
     if (email.length === 0) {return alert('Please enter your email and try again.');}
     if (password.length === 0) {return alert('Please enter your password and try again.');}
     if (signup) {
-      if (passwordVerify !== password) {return alert('Passwords don\'t match.');}
-      
+      if (!(/.+@.+\..+/).test(email)) {alert('Please enter a valid email address.'); return;}
+      if (passwordVerify !== password) {alert('Passwords don\'t match.'); return;}
       auth.createUser(email, password, function(error, user) {
-        if (!(/.+@.+\..+/).test(email)) {alert('Please enter a valid email address.'); return;}
         console.log('User Id: ' + user.id + ', Email: ' + user.email);
         loginEmail(email, password, rememberMe);
       });
