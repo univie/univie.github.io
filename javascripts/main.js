@@ -28,12 +28,13 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
           window.postMessage({
            'type': "FROM_PAGE",
            'token': user.firebaseAuthToken,
-           'userId': auth.uid
+           'userId': result.auth.uid
          }, "*");
         });
       });
   } else {
     // user is logged out
+    console.log('logged out');
   }
 });
 
