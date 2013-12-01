@@ -11,9 +11,9 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
     // user authenticated with Firebase
     console.log(user);
       ref.auth(user.firebaseAuthToken, function(error, result) {
-        if (error) {$log.log('Error logging in: ', error);}
-        $log.log('Auth success: ');
-        $log.log(result.auth);
+        if (error) {console.log('Error logging in: ', error);}
+        console.log('Auth success: ');
+        console.log(result.auth);
         var provider = result.auth.provider === 'password' ? 'email' : result.auth.provider;
         ref.child('users').child(result.auth.uid).once('value', function(userSnapshot) {
           if (!signup && !userSnapshot.val()) { // if logging in and no user found
