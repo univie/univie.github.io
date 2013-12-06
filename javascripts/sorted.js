@@ -1,6 +1,8 @@
 angular.module('LoginPage', [])
 .controller('SortedCtrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
-  // $scope.getTalks = function(language) {
+  $http.get('jsons/langs.json').then(function(data) {
+    $scope.langs = data.data;
+  });
   $scope.$watch('selected', function(language) {
     if (!language || language.length === 0) {return;}
     $http.get('jsons/' + angular.lowercase(language) + 'talks_sorted.json').then(function(data) {
@@ -9,7 +11,7 @@ angular.module('LoginPage', [])
   });
 	$scope.selected = 'French';
   $scope.show = {};
-  $scope.langs = ['French', "Italian"];
+  // $scope.langs = ['French', "Italian"];
   $scope.urlPrefix = 'http://www.ted.com/talks/view/id/';
 /*  $scope.open = function(id) {
 		$window.open(urlPrefix + id);
