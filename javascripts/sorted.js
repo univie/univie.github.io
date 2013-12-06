@@ -8,14 +8,14 @@ angular.module('LoginPage', [])
     });
   });
 	$scope.selected = 'French';
-  
+  $scope.show = {};
   $scope.langs = ['French', "Italian"];
   $scope.urlPrefix = 'http://www.ted.com/talks/view/id/';
 /*  $scope.open = function(id) {
 		$window.open(urlPrefix + id);
 	};*/
 // total tokens: 90661
-	/*$scope.data = [
+	$scope.data = [
   {
     "rank": 0,
     "id": "179",
@@ -124,5 +124,5 @@ angular.module('LoginPage', [])
     "duration": "0:00:00",
     "publishdate": "5/17/2007"
   }
-];*/
+];
 }]);

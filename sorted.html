@@ -36,8 +36,9 @@
 <h4 class="page-header">Talks in <select ng-model="selected" ng-options="lang for lang in langs"></select>
 	<small class="pull-right">Talks arranged in the order of increasing difficulty.</small>
 </h4>
+<!-- <p>Show from # <input type="number" ng-model="show.from"> to <input type="text" ng-model="show.to"></p> -->
 <div class="list-group">
-  <a href="{{urlPrefix + talk.id}}" class="list-group-item" ng-repeat="talk in data track by $index">
+  <a href="{{urlPrefix + talk.id}}" class="list-group-item" ng-repeat="talk in data.slice(show.from, show.to) track by $index">
     <h4 class="list-group-item-heading">{{$index + 1}}. {{talk.name}}
     	<small class="pull-right">{{talk.duration}}</small>
     </h4>
