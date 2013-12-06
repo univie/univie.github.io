@@ -10,8 +10,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
     <script src="javascripts/sorted.js"></script>
 </head>
-<body ng-app="LoginPage">
-	<div class="table-responsive" ng-controller="SortedCtrl">
+<body ng-app="LoginPage" class="container" ng-controller="SortedCtrl">
+<!-- 	<div class="table-responsive" ng-controller="SortedCtrl">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -32,7 +32,16 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
+	</div> -->
+<div class="page-header">Talks in <select ng-model="selected" ng-options="lang for lang in langs"></select></div>
+<div class="list-group">
+  <a href="{{urlPrefix + talk.id}}" class="list-group-item" ng-repeat="talk in data track by $index">
+    <h4 class="list-group-item-heading">{{talk.rank + 1}}. {{talk.name}}
+    	<small class="pull-right">{{talk.duration}}</small>
+    </h4>
+    <p class="list-group-item-text">{{talk.shortsummary}}</p>
+  </a>
+</div>
 
 </body>
 </html>
