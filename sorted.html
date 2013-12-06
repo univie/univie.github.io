@@ -33,10 +33,12 @@
 			</tbody>
 		</table>
 	</div> -->
-<div class="page-header">Talks in <select ng-model="selected" ng-options="lang for lang in langs"></select></div>
+<h4 class="page-header">Talks in <select ng-model="selected" ng-options="lang for lang in langs"></select>
+	<small class="pull-right">Talks arranged in the order of increasing difficulty.</small>
+</h4>
 <div class="list-group">
   <a href="{{urlPrefix + talk.id}}" class="list-group-item" ng-repeat="talk in data track by $index">
-    <h4 class="list-group-item-heading">{{talk.rank + 1}}. {{talk.name}}
+    <h4 class="list-group-item-heading">{{$index + 1}}. {{talk.name}}
     	<small class="pull-right">{{talk.duration}}</small>
     </h4>
     <p class="list-group-item-text">{{talk.shortsummary}}</p>
