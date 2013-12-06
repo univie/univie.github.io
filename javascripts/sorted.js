@@ -7,7 +7,7 @@ angular.module('LoginPage', [])
       $scope.data = data.data;
     });
   });
-	$scope.selected = 'Italian';
+	$scope.selected = 'French';
   $scope.langs = ['French', "Italian"];
   $scope.urlPrefix = 'http://www.ted.com/talks/view/id/';
 /*  $scope.open = function(id) {
