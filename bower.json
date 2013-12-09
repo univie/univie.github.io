@@ -1,0 +1,7 @@
+{
+  "name": "univie.github.io",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular-google-chart": "~0.0.5"
+  }
+}

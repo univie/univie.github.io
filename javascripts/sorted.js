@@ -1,4 +1,4 @@
-angular.module('LoginPage', [])
+angular.module('LoginPage', ['googlechart'])
 .controller('SortedCtrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
   $http.get('jsons/langs.json').then(function(data) {
     $scope.langs = data.data;

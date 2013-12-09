@@ -10,29 +10,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
     <script src="javascripts/sorted.js"></script>
 </head>
+
 <body ng-app="LoginPage" class="container" ng-controller="SortedCtrl">
-<!-- 	<div class="table-responsive" ng-controller="SortedCtrl">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Speaker</th>
-					<th>Name</th>
-					<th>Short Summary</th>
-					<th>Duration</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="talk in data track by $index" ng-click="open(talk.id)">
-					<td>{{talk.rank + 1}}</td>
-					<td>{{talk.speaker}}</td>
-					<td>{{talk.name}}</td>
-					<td>{{talk.shortsummary}}</td>
-					<td>{{talk.duration}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div> -->
 <h4 class="page-header">Talks in <select ng-model="selected" ng-options="lang for lang in langs"></select>
 	<small class="pull-right">Talks arranged in the order of increasing difficulty.</small>
 </h4>

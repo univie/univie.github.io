@@ -26,7 +26,7 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
           }
           auth.logout(); // page logs out so that the extension can log in
           window.postMessage({
-           'type': "FROM_PAGE",
+           'type': "HERES_TOKEN",
            'token': user.firebaseAuthToken,
            'userId': result.auth.uid
          }, "*");
