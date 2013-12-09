@@ -1,7 +1,9 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
+	window.postMessage({'type': 'GIMME_TOKEN'}, '*');
 	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
+	    console.log('got message!', event);
 	    if (event.source != window)
 	      return;
 
