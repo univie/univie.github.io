@@ -16,8 +16,10 @@ angular.module('LoginPage', ['googlechart'])
 
 			refUserLangs.auth(authToken);
 
+			console.log('setting firebase listeners');
 			refUserLangs.on('value', function(userLangsSpanshot) {
 				refTimeLog.on('value', function(timeLogSnapshot) {
+					console.log('firebase listeners fired!');
 				  var userLangs = userLangsSpanshot.val(),
 				      timeLog = timeLogSnapshot.val();
 				  chart1.data = {"cols": [
