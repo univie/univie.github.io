@@ -1,9 +1,8 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
-	console.log('5');
+	console.log('6');
 	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
-	    console.log('github page got message!', event);
 	    if (event.source != window)
 	      return;
 
@@ -16,10 +15,8 @@ angular.module('LoginPage', ['googlechart'])
 
 			refUserLangs.auth(authToken);
 
-			console.log('setting firebase listeners');
 			refUserLangs.on('value', function(userLangsSpanshot) {
 				refTimeLog.on('value', function(timeLogSnapshot) {
-					console.log('firebase listeners fired!');
 				  var userLangs = userLangsSpanshot.val(),
 				      timeLog = timeLogSnapshot.val();
 				  chart1.data = {"cols": [
@@ -58,6 +55,7 @@ angular.module('LoginPage', ['googlechart'])
 				          "title": "Month"
 				      }
 				  };
+					$timeout(function() {$scope.chart = chart1;}, 0);
 				});
 			});
 	    }
