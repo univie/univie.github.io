@@ -7,6 +7,7 @@ angular.module('LoginPage', ['googlechart'])
 	      return;
 
 	    if (event.data.type && (event.data.type == "HERES_TOKEN")) {
+			console.log('github page received: ', event.data.userId, event.data.token);
 			var userId = event.data.userId,
 				authToken = event.data.token,
 				refUser = new Firebase('https://bi-reader.firebaseio.com/users').child(userId),
