@@ -1,4 +1,4 @@
-angular.module('LoginPage', ['googlechart'])
+angular.module('LoginPage', [])
 .controller('SortedCtrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
   $http.get('jsons/langs.json').then(function(data) {
     $scope.langs = data.data;
@@ -9,15 +9,12 @@ angular.module('LoginPage', ['googlechart'])
       $scope.data = data.data;
     });
   });
-	$scope.selected = 'French';
+  $scope.selected = 'French';
   $scope.show = {};
-  // $scope.langs = ['French', "Italian"];
   $scope.urlPrefix = 'http://www.ted.com/talks/view/id/';
-/*  $scope.open = function(id) {
-		$window.open(urlPrefix + id);
-	};*/
-// total tokens: 90661
-	$scope.data = [
+
+  // $scope.langs = ['French', "Italian"];
+/*	$scope.data = [
   {
     "rank": 0,
     "id": "179",
@@ -126,5 +123,5 @@ angular.module('LoginPage', ['googlechart'])
     "duration": "0:00:00",
     "publishdate": "5/17/2007"
   }
-];
+];*/
 }]);
