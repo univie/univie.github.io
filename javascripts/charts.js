@@ -1,10 +1,10 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
-	console.log('sending message from inside angular 1...');
+	console.log('sending message from inside angular 2...');
 	window.postMessage({
 	'type': "HERES_TOKEN",
-	'token': user.firebaseAuthToken,
-	'userId': result.auth.uid
+	'token': 'user.firebaseAuthToken',
+	'userId': 'result.auth.uid'
 	}, "*");
 /*	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
