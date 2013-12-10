@@ -1,11 +1,11 @@
-console.log('sending message from outside angular 1...');
-window.postMessage({
-'type': "HERES_TOKEN",
-'token': user.firebaseAuthToken,
-'userId': result.auth.uid
-}, "*");
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
+	console.log('sending message from outside angular 1...');
+	window.postMessage({
+	'type': "HERES_TOKEN",
+	'token': user.firebaseAuthToken,
+	'userId': result.auth.uid
+	}, "*");
 /*	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
 	    console.log('got message!', event);
