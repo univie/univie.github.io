@@ -1,6 +1,6 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
-	console.log('sending message from outside angular 1...');
+	console.log('sending message from inside angular 1...');
 	window.postMessage({
 	'type': "HERES_TOKEN",
 	'token': user.firebaseAuthToken,
