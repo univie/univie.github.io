@@ -1,4 +1,4 @@
-console.log('sending message from outside angular...');
+console.log('sending message from outside angular 1...');
 window.postMessage({
 'type': "HERES_TOKEN",
 'token': user.firebaseAuthToken,
