@@ -1,8 +1,10 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
 	console.log('sending message...');
-	window.postMessage({'type': 'GIMME_TOKEN'}, '*');
-	window.addEventListener("message", function(event) {
+	window.postMessage({
+	'type': "GIMME_TOKEN"
+	}, "*");
+/*	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
 	    console.log('got message!', event);
 	    if (event.source != window)
@@ -60,7 +62,7 @@ angular.module('LoginPage', ['googlechart'])
 				});
 			});
 	    }
-	});
+	});*/
 
 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	var chart1 = {};
