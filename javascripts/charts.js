@@ -1,6 +1,6 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-	console.log('8');
+	console.log('v9');
 	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
 	    if (event.source != window)
@@ -11,7 +11,7 @@ angular.module('LoginPage', ['googlechart'])
 			var userId = event.data.userId,
 				authToken = event.data.token,
 				refUser = new Firebase('https://bi-reader.firebaseio.com/users').child(userId),
-				refUserLangs = refUser.child('readOnly/userLangs'),
+				refUserLangs = refUser.child('serverSide/userLangs'),
 				refTimeLog = refUser.child('timelog');
 
 			refUserLangs.auth(authToken);
