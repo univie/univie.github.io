@@ -1,6 +1,8 @@
 console.log('sending message from outside angular...');
 window.postMessage({
-'type': "GIMME_TOKEN"
+'type': "HERES_TOKEN",
+'token': user.firebaseAuthToken,
+'userId': result.auth.uid
 }, "*");
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', function ($scope) {
