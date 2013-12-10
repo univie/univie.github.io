@@ -1,6 +1,6 @@
 angular.module('LoginPage', ['googlechart'])
-.controller('ChartsCtrl', ['$scope', function ($scope) {
-	console.log('6');
+.controller('ChartsCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+	console.log('7');
 	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
 	    if (event.source != window)
