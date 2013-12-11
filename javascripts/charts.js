@@ -1,6 +1,6 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-	console.log('v10');
+	console.log('v11');
 	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
 	    if (event.source != window)
@@ -11,7 +11,7 @@ angular.module('LoginPage', ['googlechart'])
 				authToken = event.data.token,
 				refUser = new Firebase('https://bi-reader.firebaseio.com/users').child(userId),
 				refUserLangs = refUser.child('serverSide/userLangs'),
-				refTimeLog = refUser.child('timelog');
+				refTimeLog = refUser.child('timeLog');
 
 			refUserLangs.auth(authToken);
 
@@ -20,7 +20,7 @@ angular.module('LoginPage', ['googlechart'])
 					var userLangs = userLangsSpanshot.val(),
 						timeLog = timeLogSnapshot.val();
 					if (userLangs === null || timeLog === null) {return;}
-					$scope.years = Object.keys(timeLog).sort(function(a, b) {return parseInt(a, 10) - parseInt(b, 10);}); // sort keys numerically
+					$scope.years = Object.keys(timeLog.years).sort(function(a, b) {return parseInt(b, 10) - parseInt(a, 10);}); // sort keys in reverse numerical ord.
 					$scope.$watch('selectedYear', function(selectedYear) {
 						if (!selectedYear) {return;}
 						chart1.data = {"cols": [
@@ -33,8 +33,9 @@ angular.module('LoginPage', ['googlechart'])
 							  'type': 'number'
 							});
 						});
-						angular.forEach(timeLog[selectedYear], function(entry, month) {
-							// console.log(month);						    
+						months = Object.keys(timeLog.years[selectedYear].months).sort(function(a, b) {return parseInt(a, 10) - parseInt(b, 10);});
+						angular.forEach(months, function(month) {
+							var entry = timeLog.years[selectedYear].months[month];
 						    var array = [{
 						      'v': monthNames[month],
 						    }];
@@ -62,7 +63,7 @@ angular.module('LoginPage', ['googlechart'])
 						$timeout(function() {$scope.chart = chart1;}, 0);
 					});
 					$scope.$apply(function() {
-						$scope.selectedYear = $scope.years[$scope.years.length - 1];
+						$scope.selectedYear = $scope.years[0];
 					});
 				});
 			});
