@@ -6,15 +6,21 @@
     <title>TED Talks sorted by difficulty</title>
 
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <style>
+        select {margin-left: 5px !important;}
+    </style>    
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
     <script src="javascripts/sorted.js"></script>
 </head>
 
 <body ng-app="LoginPage" class="container" ng-controller="SortedCtrl">
-<h4 class="page-header">Talks in <select ng-model="selected" ng-options="lang for lang in langs"></select>
-	<small class="pull-right">Talks arranged in the order of increasing difficulty.</small>
-</h4>
+<div class="jumbotron">
+    <p class="">Browse talks in the order of increasing difficulty.</p>
+    <p class="">
+        View talks in <select  ng-model="selected" ng-options="lang for lang in langs"></select>
+    </p>
+</div>
 <!-- <p>Show from # <input type="number" ng-model="show.from"> to <input type="text" ng-model="show.to"></p> -->
 <div class="list-group">
   <a href="{{urlPrefix + talk.id}}" class="list-group-item" ng-repeat="talk in data.slice(show.from, show.to) track by $index">
