@@ -5,6 +5,7 @@ angular.module('LoginPage', [])
   });
   $scope.$watch('selected', function(language) {
     if (!language || language.length === 0) {return;}
+    $scope.data = {};
     $http.get('jsons/' + angular.lowercase(language) + 'talks_sorted.json').then(function(data) {
       $scope.data = data.data;
     });
