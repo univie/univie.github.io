@@ -17,6 +17,6 @@
         <div google-chart chart="chart" style="{{chart.cssStyle}}"/>
     </div>
 
-    <h3 class="text-center">Year &nbsp;<select ng-model="selectedYear" ng-options="year for year in years"></select></h3>
+    <h3 class="text-center" ng-if="chart">Year &nbsp;<select ng-model="selectedYear" ng-options="year for year in years"></select></h3>
 </body>
 </html>
