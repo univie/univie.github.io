@@ -24,7 +24,15 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
             window.alert('A user with this ' + provider + ' account already exists. Please Log in instead.');
             return;
           }
-          auth.logout(); // page logs out so that the extension can log in
+          if (signup) {
+            userSnapshot.child('authinfo').set({
+              'userId': user.uid,
+              'provider': user.provider,
+              'username': user.provider === 'password' || user.provider === 'facebook' ? user.email : user.username,
+              'pending': Date.now()              
+            });
+          }
+          // auth.logout(); // page logs out so that the extension can log in
           window.postMessage({
            'type': "HERES_TOKEN",
            'token': user.firebaseAuthToken,
