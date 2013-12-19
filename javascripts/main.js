@@ -25,7 +25,7 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
             return;
           }
           if (signup) {
-            userSnapshot.child('authinfo').set({
+            userSnapshot.ref().child('authinfo').set({
               'userId': user.uid,
               'provider': user.provider,
               'username': user.provider === 'password' || user.provider === 'facebook' ? user.email : user.username,
