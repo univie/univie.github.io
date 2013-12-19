@@ -11,6 +11,7 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
     // user authenticated with Firebase
     console.log(user);
       ref.auth(user.firebaseAuthToken, function(error, result) {
+        if (!submitted) {return;}
         if (error) {console.log('Error logging in: ', error);}
         console.log('Auth success: ');
         console.log(result.auth);
@@ -46,7 +47,7 @@ var auth = new FirebaseSimpleLogin(ref, function(error, user) {
   }
 });
 
-var signup;
+var signup, submitted;
 $(document).ready(function() {
   $('#passwordVerifyDiv').hide(); // hide password verify by default
 
@@ -69,12 +70,14 @@ $(document).ready(function() {
     $('#submitButton').text('Log in');
   });
   $('#facebookLoginButton').click(function() {
+    submitted = true;
     auth.login('facebook', {
       'rememberMe': true,
       'scope': 'email'
     });
   });
   $('#twitterLoginButton').click(function() {
+    submitted = true;
     auth.login('twitter', {
       'rememberMe': true/*,
       'oauth_token': '15952759-QCp4pH3tLaSF8L6e3wLDxvqlCfkpcNAAbNeHVWQFK',
@@ -88,6 +91,7 @@ $(document).ready(function() {
         passwordVerify = $('#passwordVerify').val(),
         rememberMe = $('#rememberMe').is(':checked'),
         loginEmail = function(email, password, rememberMe) {
+          submitted = true;
           auth.login('password', {
             'email': email,
             'password': password,
