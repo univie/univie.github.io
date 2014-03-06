@@ -1,6 +1,7 @@
 angular.module('LoginPage', ['googlechart'])
 .controller('ChartsCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-	console.log('v11');
+	console.log('v12');
+	$scope.selectedYear = {};
 	window.addEventListener("message", function(event) {
 	    // We only accept messages from ourselves
 	    if (event.source != window)
@@ -21,8 +22,8 @@ angular.module('LoginPage', ['googlechart'])
 						timeLog = timeLogSnapshot.val();
 					if (userLangs === null || timeLog === null) {return;}
 					$scope.years = Object.keys(timeLog.years).sort(function(a, b) {return parseInt(b, 10) - parseInt(a, 10);}); // sort keys in reverse numerical ord.
-					$scope.$watch('selectedYear', function(selectedYear) {
-						if (!selectedYear) {return;}
+					$scope.$watch('selectedYear.year', function(year) {
+						if (!year) {return;}
 						chart1.data = {"cols": [
 							{id: "month", label: "Month", type: "string"}
 						], "rows": []};
@@ -33,9 +34,9 @@ angular.module('LoginPage', ['googlechart'])
 							  'type': 'number'
 							});
 						});
-						months = Object.keys(timeLog.years[selectedYear].months).sort(function(a, b) {return parseInt(a, 10) - parseInt(b, 10);});
+						months = Object.keys(timeLog.years[year].months).sort(function(a, b) {return parseInt(a, 10) - parseInt(b, 10);});
 						angular.forEach(months, function(month) {
-							var entry = timeLog.years[selectedYear].months[month];
+							var entry = timeLog.years[year].months[month];
 						    var array = [{
 						      'v': monthNames[month],
 						    }];
@@ -63,7 +64,7 @@ angular.module('LoginPage', ['googlechart'])
 						$timeout(function() {$scope.chart = chart1;}, 0);
 					});
 					$scope.$apply(function() {
-						$scope.selectedYear = $scope.years[0];
+						$scope.selectedYear.year = $scope.years[0];
 					});
 				});
 			});
