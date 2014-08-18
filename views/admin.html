@@ -10,8 +10,9 @@
         select {margin-left: 5px !important;}
     </style>    
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://cdn.firebase.com/js/client/1.0.19/firebase.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-    <script src="javascripts/admin.js"></script>
+    <script src="../javascripts/admin.js"></script>
 </head>
 
 <body ng-app="LoginPage" class="container" ng-controller="AdminCtrl">
@@ -25,11 +26,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in users">
-        <td>{{user.uid}}</td>
-        <td>{{user.provider}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.active}}</td>
+      <tr ng-repeat="(uid, user) in users">
+        <td>{{user.authinfo.userId}}</td>
+        <td>{{user.authinfo.provider}}</td>
+        <td>{{user.authinfo.username}}</td>
+        <td ng-click="toggleActive(uid);">{{user.authinfo.pending ? 'pending' : user.authinfo.active}}</td>
       </tr>
     </tbody>
     </table>
