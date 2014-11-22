@@ -29,7 +29,7 @@ var onLogin = function onLogin (error, authData) {
     // auth.logout(); // page logs out so that the extension can log in
     window.postMessage({
      'type': 'HERES_TOKEN',
-     'token': authData.accessToken,
+     'token': authData.token,
      'userId': authData.auth.uid
    }, '*');
   });
