@@ -1,58 +1,45 @@
+'use strict';
+/* globals Firebase */
+var signup, submitted;
 var ref = new Firebase('https://bi-reader.firebaseio.com/');
 
-var auth = new FirebaseSimpleLogin(ref, function(error, user) {
-  if (error) {
-    if (error.code === 'INVALID_EMAIL') {alert('Please enter a valid email address.');}
-    if (error.code === 'INVALID_USER') {alert('A user with this email does not exist.');}
-    if (error.code === 'INVALID_PASSWORD') {alert('The password provided is incorrect.');}
-    // an error occurred while attempting login
-    console.log(error);
-  } else if (user) {
-    // user authenticated with Firebase
-    console.log(user);
-      ref.auth(user.firebaseAuthToken, function(error, result) {
-        if (!submitted) {return;}
-        if (error) {console.log('Error logging in: ', error);}
-        console.log('Auth success: ');
-        console.log(result.auth);
-        var provider = result.auth.provider === 'password' ? 'email' : result.auth.provider;
-        ref.child('users').child(result.auth.uid).once('value', function(userSnapshot) {
-          if (!signup && !userSnapshot.val()) { // if logging in and no user found
-            window.alert('A user with this ' + provider + ' account does not exist. Please try a different log in method or Sign up instead.');
-            return;
-          }
-          if (signup && userSnapshot.val()) { // if signing up and user already exists
-            window.alert('A user with this ' + provider + ' account already exists. Please Log in instead.');
-            return;
-          }
-          if (signup) {
-            userSnapshot.ref().child('authinfo').set({
-              'userId': user.uid,
-              'provider': user.provider,
-              'username': user.provider === 'password' || user.provider === 'facebook' ? user.email : user.username,
-              'pending': Date.now()              
-            });
-          }
-          // auth.logout(); // page logs out so that the extension can log in
-          window.postMessage({
-           'type': "HERES_TOKEN",
-           'token': user.firebaseAuthToken,
-           'userId': result.auth.uid
-         }, "*");
-        });
+var onLogin = function onLogin (error, authData) {
+  if (!submitted) {return;}
+  if (error) {console.log('Error logging in: ', error);}
+  console.log('Auth success: ');
+  console.log(authData);
+  var provider = authData.provider === 'password' ? 'email' : authData.provider;
+  ref.child('users').child(authData.auth.uid).once('value', function(userSnapshot) {
+    if (!signup && !userSnapshot.val()) { // if logging in and no user found
+      window.alert('A user with this ' + provider + ' account does not exist. Please try a different log in method or Sign up instead.');
+      return;
+    }
+    if (signup && userSnapshot.val()) { // if signing up and user already exists
+      window.alert('A user with this ' + provider + ' account already exists. Please Log in instead.');
+      return;
+    }
+    if (signup) {
+      userSnapshot.ref().child('authinfo').set({
+        'userId': authData.uid,
+        'provider': authData.provider,
+        'username': authData.provider === 'password' || authData.provider === 'facebook' ? authData[authData.provider].email : authData[authData.provider].username,
+        'pending': Date.now()              
       });
-  } else {
-    // user is logged out
-    console.log('logged out');
-  }
-});
+    }
+    // auth.logout(); // page logs out so that the extension can log in
+    window.postMessage({
+     'type': 'HERES_TOKEN',
+     'token': authData.accessToken,
+     'userId': authData.auth.uid
+   }, '*');
+  });
+};
 
-var signup, submitted;
 $(document).ready(function() {
   $('#passwordVerifyDiv').hide(); // hide password verify by default
 
   $('#signupButton').click(function() { // show password verify when singup button clicked
-    if (signup) return; // don't repeat the following code if already done
+    if (signup) {return;} // don't repeat the following code if already done
     signup = true;
     // $('#nonEmailDiv').hide();
     $('#signupButton').unwrap();
@@ -61,7 +48,7 @@ $(document).ready(function() {
     $('#submitButton').text('Sign up');
   });
   $('#loginButton').click(function() { // hide password verify when login button clicked
-    if (!signup) return; // don't repeat the following code if already done
+    if (!signup) {return;} // don't repeat the following code if already done
     signup = false;
     // $('#nonEmailDiv').show();
     $('#loginButton').unwrap();
@@ -71,46 +58,42 @@ $(document).ready(function() {
   });
   $('#facebookLoginButton').click(function() {
     submitted = true;
-    auth.login('facebook', {
-      'rememberMe': true,
+    ref.authWithOAuthPopup('facebook', onLogin, {
       'scope': 'email'
     });
   });
   $('#twitterLoginButton').click(function() {
     submitted = true;
-    auth.login('twitter', {
-      'rememberMe': true/*,
-      'oauth_token': '15952759-QCp4pH3tLaSF8L6e3wLDxvqlCfkpcNAAbNeHVWQFK',
-      'oauth_token_secret': 'fm2RiZ2VY33Fsnx1XWMsISbjYHgnHML30NUsjAVAssm2V',*/
-    });
+    ref.authWithOAuthPopup('twitter', onLogin);
   });
 
   $('#submitButton').click(function(event) {
     var email = $('#inputEmail').val(),
         password = $('#inputPassword').val(),
         passwordVerify = $('#passwordVerify').val(),
-        rememberMe = $('#rememberMe').is(':checked'),
-        loginEmail = function(email, password, rememberMe) {
+        // rememberMe = $('#rememberMe').is(':checked'),
+        loginEmail = function(email, password) {
           submitted = true;
-          auth.login('password', {
+          ref.authWithPassword({
             'email': email,
-            'password': password,
-            'rememberMe': rememberMe
-          });
+            'password': password
+          }, onLogin);
         };
     event.preventDefault();
-    if (email.length === 0) {return alert('Please enter your email and try again.');}
-    if (password.length === 0) {return alert('Please enter your password and try again.');}
+    if (email.length === 0) {return window.alert('Please enter your email and try again.');}
+    if (password.length === 0) {return window.alert('Please enter your password and try again.');}
     if (signup) {
-      if (passwordVerify !== password) {alert('Passwords don\'t match.'); return;}
-      auth.createUser(email, password, function(error, user) {
-        if (error && error.code === 'INVALID_EMAIL') {alert('Please enter a valid email address.'); return;}
-        if (error && error.code === 'EMAIL_TAKEN') {alert('A user with this email is already registered.'); return;}
-        console.log('User Id: ' + user.id + ', Email: ' + user.email);
-        loginEmail(email, password, rememberMe);
+      if (passwordVerify !== password) {window.alert('Passwords don\'t match.'); return;}
+      ref.createUser({
+        email: email,
+        password: password
+      }, function(error) {
+        if (error && error.code === 'INVALID_EMAIL') {window.alert('Please enter a valid email address.'); return;}
+        if (error && error.code === 'EMAIL_TAKEN') {window.alert('A user with this email is already registered.'); return;}
+        loginEmail(email, password);
       });
     } else {
-      loginEmail(email, password, rememberMe);
+      loginEmail(email, password);
     }
   });
   
